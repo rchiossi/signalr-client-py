@@ -39,7 +39,8 @@ class WebSocketsTransport(Transport):
         self._session.get(self._get_url('start'))
 
         def _receive():
-            for notification in self.ws:
+            while True:
+                notification = self.ws.recv()
                 self._handle_notification(notification)
 
         return _receive
